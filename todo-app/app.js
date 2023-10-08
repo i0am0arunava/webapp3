@@ -16,8 +16,10 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser("ssh! some secret string"));
 app.use(csrf({ cookie: true }))
-app.use(flash());
 app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "public")));
+app.set("views", path.join(__dirname, "views"));
+app.use(flash());
 app.use(session({
     secret: "arunava-369",
     cookie: {
@@ -159,8 +161,7 @@ app.get("/signout",(req,res,next)=>{
         }
     })
 })
-app.use(express.static(path.join(__dirname, 'public')))
-//middileware
+
 app.post("/todos",connectEnsureLogin.ensureLoggedIn(), async (request, response) => {
     if(request.body.title==""){
         request.flash("error","To-Dos cannot be blank");
