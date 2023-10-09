@@ -25,7 +25,7 @@ app.use(flash());
 app.use(session({
     secret: "arunava-369",
     cookie: {
-        maxAge:  8,64,00,000             }
+        maxAge:  24*60*60*1000         }
 }));
 app.use(function (request, response, next) {
     response.locals.messages = request.flash();
